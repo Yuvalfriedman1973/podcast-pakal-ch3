@@ -9,76 +9,130 @@
 <body dir="rtl">
     <div class="container">
         <div>
-        <h1>פודקאסט SLICED </h1>
-        <h1>על פיקוד במילואים</h1>
-        <hr>
-        <h2>כינוס קודקודים</h2>
-        <h3>פרק 3 - מה שאתה עושה בשגרה זה מה שאתה עושה בחירום</h3>
-        <div class="bottom">
-            <center><iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?si=KHLjiw5-UtQ_3GBl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></center>
-        </div>
-        <div class="grid">
-            <a class="box" data-start="0">
-                <h2>2אביתר רביב המ"פ</h2>
-                <p>02:58 - 00:00</p>
-            </a>
-            <a class="box" data-start="178">
-                <h2>פיקוד במילואים</h2>
-                <p>04:06 - 02:58</p>
-            </a>
-            <a class="box" data-start="246">
-                <h2>ה 7 באוקטובר</h2>
-                <p>07:02 - 04:06</p>
-            </a>
-            <a class="box" data-start="422">
-                <h2>פריסה בצפון</h2>
-                <p>09:02 - 07:02</p>
-            </a>
-            <a class="box" data-start="542">
-                <h2>הלחימה בעזה</h2>
-                <p>15:03 - 09:02</p>
-            </a>
-            <a class="box" data-start="903">
-                <h2>אתגרי מנהיגות</h2>
-                <p>25:21 - 15:03</p>
-            </a>
-            <a class="box" data-start="1521">
-                <h2>קשר עם העורף</h2>
-                <p>29:03 - 25:21</p>
-            </a>
-            <a class="box" data-start="1743">
-                <h2>רפלקציה אישית</h2>
-                <p>39:03 - 29:03</p>
-            </a>
-            <a class="box" data-start="2343">
-                <h2>טיפים למפקדים</h2>
-                <p>43:33 - 39:03</p>
-            </a>
+            <h1>פודקאסט SLICED </h1>
+            <h1>על פיקוד במילואים</h1>
+            <hr>
+            <h2>כינוס קודקודים</h2>
+            <h3>פרק 3 - מה שאתה עושה בשגרה זה מה שאתה עושה בחירום</h3>
+            <div class="bottom">
+                <center>
+                    <iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?enablejsapi=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                </center>
+            </div>
+            <div class="grid">
+                <div class="box" data-start="0" data-end="178">
+                    <h2>אביתר רביב המ"פ</h2>
+                    <p>00:00 - 02:58</p>
+                </div>
+                <div class="box" data-start="178" data-end="246">
+                    <h2>פיקוד במילואים</h2>
+                    <p>02:58 - 04:06</p>
+                </div>
+                <div class="box" data-start="246" data-end="422">
+                    <h2>ה 7 באוקטובר</h2>
+                    <p>04:06 - 07:02</p>
+                </div>
+                <div class="box" data-start="422" data-end="542">
+                    <h2>פריסה בצפון</h2>
+                    <p>07:02 - 09:02</p>
+                </div>
+                <div class="box" data-start="542" data-end="903">
+                    <h2>הלחימה בעזה</h2>
+                    <p>09:02 - 15:03</p>
+                </div>
+                <div class="box" data-start="903" data-end="1521">
+                    <h2>אתגרי מנהיגות</h2>
+                    <p>15:03 - 25:21</p>
+                </div>
+                <div class="box" data-start="1521" data-end="1743">
+                    <h2>קשר עם העורף</h2>
+                    <p>25:21 - 29:03</p>
+                </div>
+                <div class="box" data-start="1743" data-end="2343">
+                    <h2>רפלקציה אישית</h2>
+                    <p>29:03 - 39:03</p>
+                </div>
+                <div class="box" data-start="2343" data-end="9999">
+                    <h2>טיפים למפקדים</h2>
+                    <p>39:03 - 43:33</p>
+                </div>
+            </div>
         </div>
     </div>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-    let player;
 
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            events: {
-                'onReady': onPlayerReady,
-            }
-        });
-    }
+    <!-- Load YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        let updateInterval = null;
 
-    function onPlayerReady(event) {
-        const sectionLinks = document.querySelectorAll('.box');
-        sectionLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent default anchor behavior
-                const startTime = link.getAttribute('data-start');
-                player.seekTo(parseInt(startTime), true);
-                player.playVideo();
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
             });
-        });
-    }
-</script>
+        }
+
+        function onPlayerReady(event) {
+            const sectionLinks = document.querySelectorAll('.box');
+            sectionLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default behavior
+                    const startTime = parseFloat(link.getAttribute('data-start'));
+                    player.seekTo(startTime, true);
+                    player.playVideo();
+                });
+                // Make the div focusable and accessible
+                link.setAttribute('tabindex', '0');
+                link.setAttribute('role', 'button');
+                link.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        link.click();
+                    }
+                });
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                if (!updateInterval) {
+                    updateActiveSection(); // Initial check
+                    updateInterval = setInterval(updateActiveSection, 1000);
+                }
+            } else {
+                if (updateInterval) {
+                    clearInterval(updateInterval);
+                    updateInterval = null;
+                }
+            }
+        }
+
+        function updateActiveSection() {
+            try {
+                const currentTime = player.getCurrentTime();
+                const sections = document.querySelectorAll('.box');
+                let activeFound = false;
+                sections.forEach(section => {
+                    const start = parseFloat(section.getAttribute('data-start'));
+                    const end = parseFloat(section.getAttribute('data-end'));
+                    if (currentTime >= start && currentTime < end) {
+                        section.classList.add('active');
+                        activeFound = true;
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+                // If no active section is found and the video has ended, highlight the last section
+                if (!activeFound && player.getPlayerState() === YT.PlayerState.ENDED) {
+                    sections[sections.length - 1].classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error updating active section:', error);
+            }
+        }
+    </script>
 </body>
 </html>
