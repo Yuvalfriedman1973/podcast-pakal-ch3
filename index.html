@@ -35,13 +35,47 @@
             <h3>פרק 3 - מה שאתה עושה בשגרה זה מה שאתה עושה בחירום</h3>
             <div class="bottom">
                 <center>
-                    <!-- Updated the iframe src to include autoplay and mute parameters -->
-                    <iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?enablejsapi=1&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    <!-- Removed autoplay and mute parameters from the iframe src -->
+                    <iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?enablejsapi=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                 </center>
             </div>
             <div class="grid">
-                <!-- Your existing sections -->
-                <!-- ... (sections remain unchanged) ... -->
+                <div class="box" data-start="0" data-end="178">
+                    <h2>אביתר רביב המ"פ</h2>
+                    <p>00:00 - 02:58</p>
+                </div>
+                <div class="box" data-start="178" data-end="246">
+                    <h2>פיקוד במילואים</h2>
+                    <p>02:58 - 04:06</p>
+                </div>
+                <div class="box" data-start="246" data-end="422">
+                    <h2>ה 7 באוקטובר</h2>
+                    <p>04:06 - 07:02</p>
+                </div>
+                <div class="box" data-start="422" data-end="542">
+                    <h2>פריסה בצפון</h2>
+                    <p>07:02 - 09:02</p>
+                </div>
+                <div class="box" data-start="542" data-end="903">
+                    <h2>הלחימה בעזה</h2>
+                    <p>09:02 - 15:03</p>
+                </div>
+                <div class="box" data-start="903" data-end="1521">
+                    <h2>אתגרי מנהיגות</h2>
+                    <p>15:03 - 25:21</p>
+                </div>
+                <div class="box" data-start="1521" data-end="1743">
+                    <h2>קשר עם העורף</h2>
+                    <p>25:21 - 29:03</p>
+                </div>
+                <div class="box" data-start="1743" data-end="2343">
+                    <h2>רפלקציה אישית</h2>
+                    <p>29:03 - 39:03</p>
+                </div>
+                <div class="box" data-start="2343" data-end="9999">
+                    <h2>טיפים למפקדים</h2>
+                    <p>39:03 - 43:33</p>
+                </div>
             </div>
         </div>
     </div>
@@ -66,8 +100,9 @@
         }
 
         function onPlayerReady(event) {
-            // Unmute the video if you want sound after user interaction
-            // player.unMute();
+            // The video might not autoplay due to browser policies even with these settings
+            // Try to play the video programmatically
+            player.playVideo();
 
             const sectionLinks = document.querySelectorAll('.box');
             sectionLinks.forEach(link => {
@@ -76,6 +111,7 @@
                     const startTime = parseFloat(link.getAttribute('data-start'));
                     player.seekTo(startTime, true);
                     player.playVideo();
+                    player.unMute(); // Unmute the video upon user interaction
                 });
                 // Make the div focusable and accessible
                 link.setAttribute('tabindex', '0');
