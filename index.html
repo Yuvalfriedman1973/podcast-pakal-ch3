@@ -5,25 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>דף נחיתה לפודקאסט - פרק 3</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Styles for the active section */
-        .box {
-            cursor: pointer;
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            /* Additional styling if needed */
-        }
-        .box.active {
-            background-color: #f0f0f0;
-            border-color: #000;
-        }
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-    </style>
 </head>
 <body dir="rtl">
     <div class="container">
@@ -35,11 +16,12 @@
             <h3>פרק 3 - מה שאתה עושה בשגרה זה מה שאתה עושה בחירום</h3>
             <div class="bottom">
                 <center>
-                    <!-- Removed autoplay and mute parameters from the iframe src -->
-                    <iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?enablejsapi=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                    <!-- Include autoplay and mute parameters in the iframe src -->
+                    <iframe id="player" width="370" height="208" src="https://www.youtube.com/embed/k5oWo5L-faM?enablejsapi=1&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                 </center>
             </div>
             <div class="grid">
+                <!-- All sections included -->
                 <div class="box" data-start="0" data-end="178">
                     <h2>אביתר רביב המ"פ</h2>
                     <p>00:00 - 02:58</p>
@@ -93,15 +75,16 @@
                     'onStateChange': onPlayerStateChange
                 },
                 playerVars: {
-                    autoplay: 1, // Attempt to autoplay the video
-                    mute: 1      // Mute the video to comply with autoplay policies
+                    autoplay: 1, // Autoplay the video
+                    mute: 1,     // Mute the video to comply with autoplay policies
+                    controls: 1,
+                    rel: 0
                 }
             });
         }
 
         function onPlayerReady(event) {
-            // The video might not autoplay due to browser policies even with these settings
-            // Try to play the video programmatically
+            // Attempt to play the video
             player.playVideo();
 
             const sectionLinks = document.querySelectorAll('.box');
